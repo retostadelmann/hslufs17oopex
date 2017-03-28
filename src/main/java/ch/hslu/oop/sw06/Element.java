@@ -28,7 +28,7 @@ public abstract class Element {
     public Element()
     {
         // initialise instance variables
-        this.tempCels = defaultTemparature;
+        this.setTemperature(defaultTemparature);
     }
     
     /**
@@ -36,7 +36,7 @@ public abstract class Element {
      * @param temperature the initial temperature
      */
     public Element(final double temperature){
-        this.tempCels = temperature;
+        this.setTemperature(temperature);
     }
 
     /*
@@ -60,6 +60,10 @@ public abstract class Element {
      * Set a new absolute temparature.
      */
     public void setTemperature(final double newTempCelsius){
+        if(newTempCelsius < -273.15){
+            throw new IllegalArgumentException("New Temp cannot be less than -273.15");
+        }
+        
         this.tempCels = newTempCelsius;
     }
     
