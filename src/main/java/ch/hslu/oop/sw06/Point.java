@@ -3,7 +3,7 @@
  * Write a description of class Point here.
  * 
  * @author (your name) 
- * @version (a version number or a date)
+ * @version (a version number or a date) asdfasfd
  */
 public class Point
 {
