@@ -39,17 +39,10 @@ public class ElementTest {
     /*
     * Testcase for an unsupported value in set temperature.
     */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testSetTemperatureWithUnsupportedValue(){
-        boolean thrown = false;
 
-        try {
-            new Blei().setTemperature(-300);
-        } catch (IllegalArgumentException e) {
-          thrown = true;
-        }
-
-        assertTrue(thrown);       
+            new Blei().setTemperature(-300);          
     }
     
     /*
@@ -57,15 +50,12 @@ public class ElementTest {
     */
     @Test
     public void testSetTemperatureWithSupportedValue(){
-        boolean thrown = false;
-
         try {
             Blei bleiTest = new Blei(25);
             bleiTest.setTemperature(20);
+            assertTrue(true);
         } catch (IllegalArgumentException e) {
-          thrown = true;
+          assertTrue(false);
         }
-
-        assertFalse(thrown);       
     }
 }

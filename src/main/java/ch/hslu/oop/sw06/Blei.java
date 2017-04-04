@@ -9,7 +9,7 @@ package ch.hslu.oop.sw06;
  *
  * @author reto.stadelmann
  */
-public class Blei extends Element{
+public final class Blei extends Element{    
     public Blei(){
         super();
         this.ElementName = this.getElementName();

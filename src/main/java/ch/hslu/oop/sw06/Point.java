@@ -1,3 +1,4 @@
+package ch.hslu.oop.sw06;
 
 /**
  * Write a description of class Point here.
@@ -27,7 +28,7 @@ public class Point
      * Constructor for objects of class Point using an existing point
      * @param point An existing point
      */
-    public Point(Point point){
+    public Point(final Point point){
         this(point.getX(), point.getY());
     }
     
@@ -64,7 +65,12 @@ public class Point
     * Moves the point relative to the current point using another point.
     */
     public void moveRelative(final Point point){
-        this.moveRelative(point.getX(), point.getY());
+        if(point != null){
+            this.moveRelative(point.getX(), point.getY());
+        }
+        else{
+            throw new NullPointerException("Argument point was null");
+        }
     }
     
     public void moveWithPolarCoordinates(final int value, final double angle){

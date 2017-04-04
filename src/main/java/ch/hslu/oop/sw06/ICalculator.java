@@ -16,5 +16,5 @@ public interface ICalculator {
     * @param x The first value.
     * @param y The second value.
     */
-    int addition(final int x, final int y);
+    float addition(final int x, final int y);
 }

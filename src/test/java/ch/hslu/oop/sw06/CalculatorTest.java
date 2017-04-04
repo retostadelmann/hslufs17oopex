@@ -14,6 +14,7 @@ import org.junit.Test;
  */
 public class CalculatorTest {
     ICalculator testCalculator;
+    float delta = 0.00002f;
     
     @Before
     public void createInstance(){
@@ -21,11 +22,38 @@ public class CalculatorTest {
     }
     
     /*
+    * Test for the addition method with two max values
+    */
+    @Test
+    public void testWithIntMaxValues(){
+        assertEquals(
+                Integer.MAX_VALUE*2,
+                this.testCalculator.addition(
+                        Integer.MAX_VALUE, 
+                        Integer.MAX_VALUE
+                ), 
+                delta);
+    }
+    /*
+    * Test for the addition method with two max values
+    */
+    @Test
+    public void testWithIntMinValues(){
+        assertEquals(
+                Integer.MIN_VALUE*2,
+                this.testCalculator.addition(
+                        Integer.MIN_VALUE, 
+                        Integer.MIN_VALUE
+                ), 
+                delta);
+    }
+    
+    /*
     * Test for the addition method with two zero values.
     */
     @Test 
     public void testAdditonWithZeroValues(){
-            assertEquals(0, this.testCalculator.addition(0,0));
+            assertEquals(0f, this.testCalculator.addition(0,0), delta);
     }
     
     /*
@@ -33,7 +61,7 @@ public class CalculatorTest {
     */
     @Test 
     public void testAdditonWithOnePositiveValue(){
-            assertEquals(8, this.testCalculator.addition(0,8));
+            assertEquals(8f, this.testCalculator.addition(0,8), delta);
     }
             
     /*
@@ -41,7 +69,7 @@ public class CalculatorTest {
     */
     @Test 
     public void testAdditonWithTwoPositiveValues(){
-            assertEquals(15, this.testCalculator.addition(7,8));
+            assertEquals(15f, this.testCalculator.addition(7,8), delta);
     }
     
     /*
@@ -49,7 +77,7 @@ public class CalculatorTest {
     */
     @Test 
     public void testAdditonWithOneNegativeValue(){
-            assertEquals(-10, this.testCalculator.addition(10,-20));
+            assertEquals(-10f, this.testCalculator.addition(10,-20), delta);
     }
     
     /*
@@ -57,7 +85,7 @@ public class CalculatorTest {
     */
     @Test 
     public void testAdditonWithTwoNegativeValues(){
-            assertEquals(-20, this.testCalculator.addition(-13,-7));
+            assertEquals(-20f, this.testCalculator.addition(-13,-7), delta);
     }
     
      /*
@@ -67,6 +95,6 @@ public class CalculatorTest {
     */
     @Test 
     public void testAdditonWithCastedNegativeFloatValue(){
-            assertEquals(-6, this.testCalculator.addition((int)-13.9,7));          
+            assertEquals(-6, this.testCalculator.addition((int)-13.9,7), delta);          
     }
 }
