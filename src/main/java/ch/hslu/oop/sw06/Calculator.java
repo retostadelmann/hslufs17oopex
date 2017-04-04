@@ -12,7 +12,7 @@ package ch.hslu.oop.sw06;
 public class Calculator implements ICalculator{
 
     @Override
-    public float addition(final int x, final int y) {
+    public long addition(final int x, final int y) {
         return x + y;
     }
 
