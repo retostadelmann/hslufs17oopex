@@ -27,12 +27,11 @@ public class CalculatorTest {
     @Test
     public void testWithIntMaxValues(){
         assertEquals(
-                Integer.MAX_VALUE*2,
+                (long)Integer.MAX_VALUE*2,
                 this.testCalculator.addition(
                         Integer.MAX_VALUE, 
                         Integer.MAX_VALUE
-                ), 
-                delta);
+                ));
     }
     /*
     * Test for the addition method with two max values
@@ -40,12 +39,11 @@ public class CalculatorTest {
     @Test
     public void testWithIntMinValues(){
         assertEquals(
-                Integer.MIN_VALUE*2,
+                (long)Integer.MIN_VALUE*2,
                 this.testCalculator.addition(
                         Integer.MIN_VALUE, 
                         Integer.MIN_VALUE
-                ), 
-                delta);
+                ));
     }
     
     /*

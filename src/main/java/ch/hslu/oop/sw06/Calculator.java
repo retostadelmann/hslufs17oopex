@@ -13,7 +13,7 @@ public class Calculator implements ICalculator{
 
     @Override
     public long addition(final int x, final int y) {
-        return x + y;
+        return (long)x + (long)y;
     }
 
 }
