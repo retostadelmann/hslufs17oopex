@@ -20,6 +20,7 @@ package ch.hslu.demo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ch.hslu.oop.sw06.*;
+import ch.hslu.oop.sw07.*;
 
 /**
  * Demo-Applikation für {@link ch.hslu.demo.App}-Klasse.
@@ -45,7 +46,8 @@ public final class App {
      * @param args Startargumente.
      */
     public static void main(final String[] args) {
-        Blei blei = new Blei();
-        String toString = blei.toString();
+        Person p = new Person(333, "Test", "Reto");
+        Person c = p;
+        System.out.print(c.equals(p));
     }
 }

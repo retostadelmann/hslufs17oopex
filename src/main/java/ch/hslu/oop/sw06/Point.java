@@ -1,12 +1,17 @@
 package ch.hslu.oop.sw06;
 
+import ch.hslu.oop.sw07.Person;
+import java.util.Objects;
+import jdk.nashorn.internal.ir.annotations.Immutable;
+
 /**
  * Write a description of class Point here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Point
+@Immutable
+public final class Point implements Comparable<Point>
 {
     // instance variables - replace the example below with your own
     private int x;
@@ -103,5 +108,38 @@ public class Point
     */
     public void setY(final int y){
         this.y = y;
+    }
+    
+    /**
+     *
+     * @param obj The object to check
+     * @return A value indicating whether the two objects are defined as equal.
+     */
+    @Override
+    public final boolean equals(final Object obj){
+         if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Point)) {
+            return false;
+        }
+
+        final Point other = (Point) obj;
+        return Objects.equals(this.x, other.x) &&
+                Objects.equals(this.y, other.y);
+    }
+    
+    /*
+    * Overrides the default method.
+     */
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.x, this.y);
+    }
+
+    @Override
+    public int compareTo(Point other) {
+        return Long.compare(this.getQuadrant(), other.getQuadrant());
     }
 }
