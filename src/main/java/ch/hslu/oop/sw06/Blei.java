@@ -5,10 +5,13 @@
  */
 package ch.hslu.oop.sw06;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
+
 /**
  *
  * @author reto.stadelmann
  */
+@Immutable
 public final class Blei extends Element{    
     public Blei(){
         super();

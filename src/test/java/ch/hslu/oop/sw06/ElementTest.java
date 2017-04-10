@@ -5,13 +5,20 @@
  */
 package ch.hslu.oop.sw06;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.After;
+import org.junit.AfterClass;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 /**
  *
  * @author reto.stadelmann
  */
 public class ElementTest {
+
+   
     /*
     * Testcase for the value in get temperature.
     */
@@ -57,5 +64,23 @@ public class ElementTest {
         } catch (IllegalArgumentException e) {
           assertTrue(false);
         }
+    }
+    
+    @Test
+    public void verifyEquals() {
+        EqualsVerifier
+                .forClass(Blei.class)
+                .withOnlyTheseFields("ElementName")
+                .verify();
+    }
+    
+    @Test
+    public void testEqualsPositive(){
+        assertTrue(new Blei(25).equals(new Blei(26)));
+    }
+    
+    @Test
+    public void testEqualsNegative(){
+        assertFalse(new Blei(25).equals(new Stickstoff(26)));
     }
 }

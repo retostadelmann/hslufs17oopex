@@ -5,10 +5,14 @@
  */
 package ch.hslu.oop.sw06;
 
+import java.util.Objects;
+import jdk.nashorn.internal.ir.annotations.Immutable;
+
 /**
  *
  * @author reto.stadelmann
  */
+@Immutable
 public abstract class Element {
     public enum TemperatureType{
         Kelvin,
@@ -77,6 +81,28 @@ public abstract class Element {
     @Override
     public String toString(){
         return this.ElementName;
+    }
+    
+    @Override
+    public final boolean equals(Object obj){
+         if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Element)) {
+            return false;
+        }
+        
+         final Element other = (Element) obj;
+        return Objects.equals(this.ElementName, other.ElementName);
+    }
+    
+    /*
+    * Overrides the default method.
+     */
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.ElementName);
     }
     
     public abstract String getElementState(final String element);
