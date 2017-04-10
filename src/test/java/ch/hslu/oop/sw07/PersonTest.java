@@ -5,7 +5,6 @@
  */
 package ch.hslu.oop.sw07;
 
-import ch.hslu.oop.sw06.Point;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Assert;
 import org.junit.Test;
