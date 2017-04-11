@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hs.chslu.oop.sw08;
+package ch.hslu.oop.sw08;
 
 import ch.hslu.oop.sw08.Temperature;
 import ch.hslu.oop.sw08.TemperatureHistory;

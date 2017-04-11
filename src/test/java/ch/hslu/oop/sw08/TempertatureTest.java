@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hs.chslu.oop.sw08;
+package ch.hslu.oop.sw08;
 
-import ch.hslu.oop.sw08.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,7 +21,7 @@ public class TempertatureTest {
     */
     @Test
     public void getTemperatureCelsius(){
-        assertEquals(23, new Temperature(23).getTemparature(Temperature.TemperatureType.Celsius), 0.0002f);
+        assertEquals(23, new Temperature(23).getTemparature(TemperatureType.Celsius), 0.0002f);
     }
     
     /**
@@ -30,7 +29,7 @@ public class TempertatureTest {
     */
     @Test
     public void getTemperatureKelvin(){
-        assertEquals(296.15, new Temperature(23).getTemparature(Temperature.TemperatureType.Kelvin), 0.0002f);
+        assertEquals(296.15, new Temperature(23).getTemparature(TemperatureType.Kelvin), 0.0002f);
     }
     
     /**
@@ -41,7 +40,7 @@ public class TempertatureTest {
         assertEquals(
                 73.4, 
                 new Temperature(23).getTemparature(
-                        Temperature.TemperatureType.Farenheit
+                        TemperatureType.Farenheit
                 ),
                 0.0002f);
     }

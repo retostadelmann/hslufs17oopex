@@ -6,6 +6,7 @@
 package ch.hslu.oop.sw06;
 
 import ch.hslu.oop.sw08.Temperature;
+import ch.hslu.oop.sw08.TemperatureType;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,8 +19,6 @@ import org.junit.Test;
  * @author reto.stadelmann
  */
 public class ElementTest {
-
-   
     /*
     * Testcase for the value in get temperature.
     */
@@ -28,7 +27,7 @@ public class ElementTest {
         assertEquals(
                 23, 
                 new Blei(23)
-                        .getTemparature(Temperature.TemperatureType.Celsius), 
+                        .getTemparature(TemperatureType.Celsius), 
                 0.0002f);
     }
     
@@ -40,7 +39,7 @@ public class ElementTest {
         assertEquals(
                 296.15, 
                 new Blei(23)
-                        .getTemparature(Temperature.TemperatureType.Kelvin),
+                        .getTemparature(TemperatureType.Kelvin),
                 0.02f);
     }
     
@@ -52,7 +51,7 @@ public class ElementTest {
         assertEquals(
                 73.4,
                 new Blei(23)
-                        .getTemparature(Temperature.TemperatureType.Farenheit),
+                        .getTemparature(TemperatureType.Farenheit),
                 0.0002f);
     }
     
@@ -77,6 +76,42 @@ public class ElementTest {
         } catch (IllegalArgumentException e) {
           assertTrue(false);
         }
+    }
+    
+    @Test
+    public void testBleiSolidState(){
+        Element b = new Blei(35);
+        assertEquals(AggregateState.Solid, b.getCurrentState());
+    }
+    
+    @Test
+    public void testBleiLiquidState(){
+        Element b = new Blei(500);
+        assertEquals(AggregateState.Liquid, b.getCurrentState());
+    }
+    
+    @Test
+    public void testBleiGasState(){
+        Element b = new Blei(5000);
+        assertEquals(AggregateState.Gas, b.getCurrentState());
+    }
+    
+    @Test
+    public void testQuecksilberSolidState(){
+        Element b = new Quecksilber(-270);
+        assertEquals(AggregateState.Solid, b.getCurrentState());
+    }
+    
+    @Test
+    public void testQuecksilberLiquidState(){
+        Element b = new Quecksilber(20);
+        assertEquals(AggregateState.Liquid, b.getCurrentState());
+    }
+    
+    @Test
+    public void testQuecksilberGasState(){
+        Element b = new Quecksilber(357);
+        assertEquals(AggregateState.Gas, b.getCurrentState());
     }
     
     @Test

@@ -15,12 +15,7 @@ import jdk.nashorn.internal.ir.annotations.Immutable;
  */
 @Immutable
 public final class Temperature implements Comparable<Temperature> {
-    public enum TemperatureType{
-        Kelvin,
-        Celsius,
-        Farenheit
-    }
-    
+      
     static final double KELVIN_OFFSET = 273.15;
     
     // member 

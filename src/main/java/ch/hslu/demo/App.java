@@ -46,8 +46,7 @@ public final class App {
      * @param args Startargumente.
      */
     public static void main(final String[] args) {
-        Person p = new Person(333, "Test", "Reto");
-        Person c = p;
-        System.out.print(c.equals(p));
+        Blei b = new Blei(35);
+        System.out.print(b.getElementState());
     }
 }

@@ -5,7 +5,8 @@
  */
 package ch.hslu.oop.sw06;
 
-import ch.hslu.oop.sw08.Temperature;
+import ch.hslu.oop.sw08.*;
+import java.util.EnumMap;
 import java.util.Objects;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
@@ -14,19 +15,20 @@ import jdk.nashorn.internal.ir.annotations.Immutable;
  * @author reto.stadelmann
  */
 @Immutable
-public abstract class Element {
+public abstract class Element{
     
     // member
     protected String elementName = "Element";
     protected Temperature temperature;
+    protected EnumMap<AggregateState, Double> stateSwitchPoints;
 
     /**
      * Constructor for a new Element object using the initial temperature.
      */
     public Element()
     {
-        // initialise instance variables
         this.temperature = new Temperature();
+        this.stateSwitchPoints = new EnumMap<>(AggregateState.class);
     }
     
     /**
@@ -34,29 +36,60 @@ public abstract class Element {
      * @param temperature the initial temperature
      */
     public Element(final double temperature){
+        this.stateSwitchPoints = new EnumMap<>(AggregateState.class);
         this.temperature = new Temperature(temperature);
     }
 
-    /*
-     * Get the current temparature in the given type.
+    /**
+     * Get the current temperature in the given type.
+     * @param type The temperature type.
+     * @return The temperature.
      */
-    public double getTemparature(Temperature.TemperatureType type)
+    public double getTemparature(TemperatureType type)
     {
        return this.temperature.getTemparature(type);
     }
     
-    /*
-     * Set a new absolute temparature.
+    /**
+     * Set a new absolute temperature.
+     * @param newTempCelsius The new temperature.
      */
     public void setTemperature(final double newTempCelsius){
         this.temperature.setTemperature(newTempCelsius);
     }
     
-    /*
-     * Set a new temparature relative to the currently set temparature.
+    /**
+     * Set a new temperature relative to the currently set temperature.
+     * @param relativeChange The relative change.
      */
     public void setTemperatureRelative(final double relativeChange){
         this.temperature.setTemperatureRelative(relativeChange);
+    }
+    
+    /**
+     * Get the current Element State in text form.
+     * @return 
+     */
+    public String getElementState(){
+         return this.getTemperatureStateString(this.getCurrentState());
+    }
+    
+    protected AggregateState getCurrentState(){
+        if (this.temperature.getTemparature(TemperatureType.Celsius) < this.stateSwitchPoints.get(AggregateState.Solid)) {
+            return AggregateState.Solid;
+        } else if (this.temperature.getTemparature(TemperatureType.Celsius) < this.stateSwitchPoints.get(AggregateState.Liquid)) {
+            return AggregateState.Liquid;
+        } else {
+            return AggregateState.Gas;
+        }
+    }
+    
+    protected String getTemperatureStateString(AggregateState state){
+        return String.format(
+                "%s ist bei %s Grad Celsius %s", 
+                this.elementName, 
+                this.temperature.getTemparature(TemperatureType.Celsius), 
+                state.getValue());
     }
     
     @Override
@@ -78,14 +111,19 @@ public abstract class Element {
         return Objects.equals(this.elementName, other.elementName);
     }
     
-    /*
-    * Overrides the default method.
-     */
     @Override
     public final int hashCode() {
         return Objects.hash(this.elementName);
     }
     
-    public abstract AggregateState getElementState();
+    /**
+     * Gets the currents element name.
+     * @return The element name.
+     */
     public abstract String getElementName();
+    
+    /**
+     * Sets the state switching points for the current element.
+     */
+    protected abstract void setElementStateSwitchingPoints();
 }

@@ -5,7 +5,6 @@
  */
 package ch.hslu.oop.sw06;
 
-import ch.hslu.oop.sw08.Temperature;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
 /**
@@ -17,25 +16,20 @@ public final class Blei extends Element{
     public Blei(){
         super();
         this.elementName = this.getElementName();
+        this.setElementStateSwitchingPoints();
     }
     
     public Blei(final double temperature){
         super(temperature);
         this.elementName = this.getElementName();
+        this.setElementStateSwitchingPoints();
     }
-
+    
     @Override
-    public AggregateState getElementState() {      
-        if(this.temperature.getTemparature(Temperature.TemperatureType.Celsius) < -38.83){
-            return AggregateState.Solid;
-        }
-        else if (this.temperature.getTemparature(Temperature.TemperatureType.Celsius) < 357){
-            return AggregateState.Liquid;
-        }
-        else{
-            return AggregateState.Gas;
-        }
-    }  
+    protected final void setElementStateSwitchingPoints(){
+        this.stateSwitchPoints.put(AggregateState.Solid, 327.43);
+        this.stateSwitchPoints.put(AggregateState.Liquid, 1744d);
+    }
 
     @Override
     public String getElementName() {

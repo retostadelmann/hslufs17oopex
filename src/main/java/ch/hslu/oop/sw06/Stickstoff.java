@@ -5,8 +5,6 @@
  */
 package ch.hslu.oop.sw06;
 
-import ch.hslu.oop.sw08.Temperature;
-
 /**
  *
  * @author reto.stadelmann
@@ -16,25 +14,20 @@ public final class Stickstoff extends Element {
     public Stickstoff(){
         super();
         this.elementName = this.getElementName();
+        this.setElementStateSwitchingPoints();
     }
     
     public Stickstoff(final double temperature){
         super(temperature);
         this.elementName = this.getElementName();
+        this.setElementStateSwitchingPoints();
     }
-
+    
     @Override
-    public AggregateState getElementState() {
-        if(this.temperature.getTemparature(Temperature.TemperatureType.Celsius) < -210.1){
-            return AggregateState.Solid;
-        }
-        else if (this.temperature.getTemparature(Temperature.TemperatureType.Celsius) < -196){
-            return AggregateState.Liquid;
-        }
-        else{
-            return AggregateState.Gas;
-        }
-    }  
+    protected final void setElementStateSwitchingPoints(){
+        this.stateSwitchPoints.put(AggregateState.Solid, -201.1);
+        this.stateSwitchPoints.put(AggregateState.Liquid, -196d);
+    }
 
     @Override
     public final String getElementName() {

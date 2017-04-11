@@ -6,6 +6,7 @@
 package ch.hslu.oop.sw08;
 
 import ch.hslu.demo.Helpers;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,7 +19,7 @@ import java.util.OptionalDouble;
  */
 public final class TemperatureHistory {
 
-    private final ArrayList<Temperature> temperatures;
+    private final Collection<Temperature> temperatures;
 
     /**
      * Instantiates a new temperature history object.

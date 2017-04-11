@@ -10,7 +10,17 @@ package ch.hslu.oop.sw06;
  * @author reto.stadelmann
  */
 public enum AggregateState {
-    Solid,
-    Liquid,
-    Gas
+    Solid("fest"),
+    Liquid("flüssig"),
+    Gas("gasförmig");
+    
+    private final String description;
+    
+    private AggregateState(final String description){
+        this.description = description;
+    }
+    
+    public String getValue(){
+        return this.description;
+    }
 }
