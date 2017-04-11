@@ -5,6 +5,7 @@
  */
 package ch.hslu.oop.sw07;
 
+import java.lang.annotation.Inherited;
 import java.util.Objects;
 
 /**

@@ -5,6 +5,7 @@
  */
 package ch.hslu.oop.sw06;
 
+import ch.hslu.oop.sw08.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -24,7 +25,11 @@ public class ElementTest {
     */
     @Test
     public void testGetTemperatureCelsius(){
-        assertEquals(23, new Blei(23).getTemparature(Element.TemperatureType.Celsius), 0.0002f);
+        assertEquals(
+                23, 
+                new Blei(23)
+                        .getTemparature(Temperature.TemperatureType.Celsius), 
+                0.0002f);
     }
     
     /*
@@ -32,7 +37,11 @@ public class ElementTest {
     */
     @Test
     public void testGetTemperatureKelvin(){
-        assertEquals(296.15, new Blei(23).getTemparature(Element.TemperatureType.Kelvin), 0.02f);
+        assertEquals(
+                296.15, 
+                new Blei(23)
+                        .getTemparature(Temperature.TemperatureType.Kelvin),
+                0.02f);
     }
     
     /*
@@ -40,7 +49,11 @@ public class ElementTest {
     */
     @Test
     public void testGetTemperatureFarenheit(){
-        assertEquals(73.4, new Blei(23).getTemparature(Element.TemperatureType.Farenheit), 0.0002f);
+        assertEquals(
+                73.4,
+                new Blei(23)
+                        .getTemparature(Temperature.TemperatureType.Farenheit),
+                0.0002f);
     }
     
     /*
@@ -70,7 +83,7 @@ public class ElementTest {
     public void verifyEquals() {
         EqualsVerifier
                 .forClass(Blei.class)
-                .withOnlyTheseFields("ElementName")
+                .withOnlyTheseFields("elementName")
                 .verify();
     }
     

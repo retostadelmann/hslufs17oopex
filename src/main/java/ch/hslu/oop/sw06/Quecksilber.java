@@ -5,39 +5,37 @@
  */
 package ch.hslu.oop.sw06;
 
+import ch.hslu.oop.sw08.Temperature;
+
 /**
  *
  * @author reto.stadelmann
  */
-public class Quecksilber extends Element {
+public final class Quecksilber extends Element {
 
     public Quecksilber() {
         super();
-        this.ElementName = this.getElementName();
+        this.elementName = this.getElementName();
     }
 
     public Quecksilber(final double temperature) {
         super(temperature);
-        this.ElementName = this.getElementName();
+        this.elementName = this.getElementName();
     }
-
+    
     @Override
-    public String getElementState(String element) {
-        String zustand;
-
-        if (this.tempCels < 327.43) {
-            zustand = "Fest";
-        } else if (this.tempCels < 1744) {
-            zustand = "Flüssig";
+    public AggregateState getElementState() {
+        if (this.temperature.getTemparature(Temperature.TemperatureType.Celsius) < 327.43) {
+            return AggregateState.Solid;
+        } else if (this.temperature.getTemparature(Temperature.TemperatureType.Celsius) < 1744) {
+            return AggregateState.Liquid;
         } else {
-            zustand = "Gasförmig";
+            return AggregateState.Gas;
         }
-
-        return zustand;
     }
 
     @Override
-    public String getElementName() {
+    public final String getElementName() {
         return "Quecksilber";
     }
 }

@@ -5,6 +5,7 @@
  */
 package ch.hslu.oop.sw06;
 
+import ch.hslu.oop.sw08.Temperature;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
 /**
@@ -15,29 +16,25 @@ import jdk.nashorn.internal.ir.annotations.Immutable;
 public final class Blei extends Element{    
     public Blei(){
         super();
-        this.ElementName = this.getElementName();
+        this.elementName = this.getElementName();
     }
     
     public Blei(final double temperature){
         super(temperature);
-        this.ElementName = this.getElementName();
+        this.elementName = this.getElementName();
     }
 
     @Override
-    public String getElementState(String element) {
-        String zustand;
-        
-        if(this.tempCels < -38.83){
-            zustand = "Fest";
+    public AggregateState getElementState() {      
+        if(this.temperature.getTemparature(Temperature.TemperatureType.Celsius) < -38.83){
+            return AggregateState.Solid;
         }
-        else if (this.tempCels < 357){
-            zustand = "Flüssig";
+        else if (this.temperature.getTemparature(Temperature.TemperatureType.Celsius) < 357){
+            return AggregateState.Liquid;
         }
         else{
-            zustand = "Gasförmig";
+            return AggregateState.Gas;
         }
-        
-        return zustand;
     }  
 
     @Override
