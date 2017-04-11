@@ -19,7 +19,7 @@ public final class PersonTest {
     public void verifyEquals(){
         EqualsVerifier
                 .forClass(Person.class)
-                 .withOnlyTheseFields("ID", "Name", "Surname")
+                .withOnlyTheseFields("id", "name", "surname")
                 .verify();
     }
     

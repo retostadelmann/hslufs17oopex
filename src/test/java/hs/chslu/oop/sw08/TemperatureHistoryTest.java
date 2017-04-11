@@ -18,7 +18,7 @@ import org.junit.Test;
 public class TemperatureHistoryTest {
     
     @Test
-    public void add(){
+    public void tetsAddNewTemperature(){
         TemperatureHistory history = new TemperatureHistory();
         history.add(new Temperature(25));
         
@@ -27,21 +27,39 @@ public class TemperatureHistoryTest {
     }
     
     @Test (expected = IllegalArgumentException.class)
-    public void addNullTemp(){
+    public void testAddNullTemp(){
         TemperatureHistory history = new TemperatureHistory();
         history.add(null);
     }
     
     @Test
-    public void countEquals(){
+    public void testCountEquals(){
         TemperatureHistory history = new TemperatureHistory();
         history.add(new Temperature(25));
         history.add(new Temperature(35));
         assertEquals(2, history.getCount());
     }
     
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetMaxValueException(){
+        TemperatureHistory history = new TemperatureHistory();
+        history.getMaxValue();
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetMinValueException(){
+        TemperatureHistory history = new TemperatureHistory();
+        history.getMinValue();
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetAverageValueException(){
+        TemperatureHistory history = new TemperatureHistory();
+        history.getAverageValue();
+    }
+    
     @Test
-    public void clear(){
+    public void testClearHistory(){
         TemperatureHistory history = new TemperatureHistory();
         history.add(new Temperature(25));
         history.add(new Temperature(35));
@@ -52,7 +70,7 @@ public class TemperatureHistoryTest {
     }
     
     @Test
-    public void getMax(){
+    public void testGetMax(){
         TemperatureHistory history = new TemperatureHistory();
         history.add(new Temperature(25));
         Temperature highest = new Temperature(35);
@@ -63,7 +81,7 @@ public class TemperatureHistoryTest {
     }
     
     @Test
-    public void getMin(){
+    public void testGetMin(){
         TemperatureHistory history = new TemperatureHistory();
         history.add(new Temperature(25));
         Temperature lowest = new Temperature(-40);
@@ -71,5 +89,15 @@ public class TemperatureHistoryTest {
         history.add(new Temperature(-30));
         
         assertEquals(lowest, history.getMinValue());
+    }
+    
+    @Test
+    public void testGetAverage(){
+        TemperatureHistory history = new TemperatureHistory();
+        history.add(new Temperature(10));
+        history.add(new Temperature(20));
+        history.add(new Temperature(30));
+        
+        assertEquals(20, history.getAverageValue(), 0.0002d);
     }
 }
