@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 /**
- * Test class for {@link ch.hslu.oop.sw06.ICalculator}-Klasse
+ * Test class for {@link ch.hslu.oop.sw06.ICalculator}.
  * @author reto.stadelmann
  */
 public class CalculatorTest {

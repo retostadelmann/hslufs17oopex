@@ -129,6 +129,6 @@ public class ElementTest {
     
     @Test
     public void testEqualsNegative(){
-        assertFalse(new Blei(25).equals(new Stickstoff(26)));
+        assertFalse(new Blei(25).equals(new Stickstoff(25)));
     }
 }

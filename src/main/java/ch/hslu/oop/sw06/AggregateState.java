@@ -20,6 +20,10 @@ public enum AggregateState {
         this.description = description;
     }
     
+    /**
+     * Returns a textual representation of the state.
+     * @return The state.
+     */
     public String getValue(){
         return this.description;
     }

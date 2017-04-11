@@ -16,25 +16,19 @@ import org.junit.Test;
  * @author reto.stadelmann
  */
 public class TempertatureTest {
-    /**
-    * Test case for the value in get temperature.
-    */
+    
+    double delta = 0.0002d;
+
     @Test
     public void getTemperatureCelsius(){
-        assertEquals(23, new Temperature(23).getTemparature(TemperatureType.Celsius), 0.0002f);
+        assertEquals(23, new Temperature(23).getTemparature(TemperatureType.Celsius), delta);
     }
     
-    /**
-    * Test case for the value in get temperature.
-    */
     @Test
     public void getTemperatureKelvin(){
-        assertEquals(296.15, new Temperature(23).getTemparature(TemperatureType.Kelvin), 0.0002f);
+        assertEquals(296.15, new Temperature(23).getTemparature(TemperatureType.Kelvin), delta);
     }
     
-    /**
-    * Test case for the value in get temperature.
-    */
     @Test
     public void getTemperatureFarenheit(){
         assertEquals(
@@ -45,35 +39,23 @@ public class TempertatureTest {
                 0.0002f);
     }
     
-    /**
-     * Test case for the Celsius to Kelvin conversion method.
-     */
     @Test
     public void conversionCelsiusToKelvin(){
-        assertEquals(263.15, Temperature.convertCelsiusToKelvin(-10), 0.0002f);
+        assertEquals(263.15, Temperature.convertCelsiusToKelvin(-10), delta);
     }
     
-    /*
-    * Testcase for an unsupported value in Celsius to Kelvin Conversion.
-    */
     @Test(expected = IllegalArgumentException.class)
     public void conversionCelsiusToKelvinWithUnsupportedValue()
     {
         Temperature.convertCelsiusToKelvin(-300);          
     }
     
-    /*
-    * Testcase for an unsupported value in set temperature.
-    */
     @Test(expected = IllegalArgumentException.class)
     public void setTemperatureWithUnsupportedValue()
     {
         new Temperature().setTemperature(-300);          
     }
     
-    /*
-    * Testcase for a supported value in set temperature.
-    */
     @Test
     public void setTemperatureWithSupportedValue(){
         try {

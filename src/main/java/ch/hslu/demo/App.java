@@ -29,12 +29,6 @@ public final class App {
 
     private static final Logger LOGGER = LogManager.getLogger(App.class);
 
-    /** X-Wert. Beispiel. */
-    private static final int COR_X = 2;
-
-    /** Y-Wert. Beispiel. */
-    private static final int COR_Y = -1;
-
     /**
      * Privater Konstruktor.
      */
@@ -46,7 +40,7 @@ public final class App {
      * @param args Startargumente.
      */
     public static void main(final String[] args) {
-        Blei b = new Blei(35);
-        System.out.print(b.getElementState());
+        Blei b = new Blei(8000);
+        LOGGER.info(b.getElementState());
     }
 }
