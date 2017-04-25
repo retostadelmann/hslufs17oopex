@@ -5,6 +5,7 @@
  */
 package ch.hslu.oop.sw08;
 
+import ch.hslu.oop.sw10.TemperatureException;
 import java.util.Objects;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
@@ -26,7 +27,7 @@ public final class Temperature implements Comparable<Temperature> {
     /**
      * Constructor for a new Element object using the initial temperature.
      */
-    public Temperature()
+    private Temperature()
     {
         // initialise instance variables
         this.setTemperature(defaultTemparature);
@@ -36,8 +37,26 @@ public final class Temperature implements Comparable<Temperature> {
      * Constructor for a new Element object with an initial temperature.
      * @param temperature the initial temperature
      */
-    public Temperature(final double temperature){
+    private Temperature(final double temperature){
         this.setTemperature(temperature);
+    }
+    
+    /**
+     * Creates a new Temperature Object from Celsius
+     * @param celsius The Temperature in Celsius
+     * @return A new Temperature Object.
+     */
+    public static Temperature createFromCelsius(final double celsius){
+        return new Temperature(celsius);
+    }
+    
+    /**
+     * Creates a new Temperature Object from Kelvin
+     * @param kelvin The Temperature in Kelvin
+     * @return A new Temperature Object.
+     */
+    public static Temperature createFromKelvin(final double kelvin){
+        return new Temperature(kelvin - KELVIN_OFFSET);
     }
     
     /**
@@ -45,10 +64,10 @@ public final class Temperature implements Comparable<Temperature> {
      * @param celsiusTemperature The temperature to convert.
      * @return The converted temperature in Kelvin.
      */
-    public static double convertCelsiusToKelvin(final double celsiusTemperature)
+    public static double convertCelsiusToKelvin(final double celsiusTemperature) throws TemperatureException
     {
         if(celsiusTemperature < (KELVIN_OFFSET * -1)){
-            throw new IllegalArgumentException("New Temp cannot be less than -273.15");
+            throw new TemperatureException("Value cannot be less than -273.15");
         }
         
         return celsiusTemperature + KELVIN_OFFSET;
@@ -59,7 +78,7 @@ public final class Temperature implements Comparable<Temperature> {
      * @param type The temperature type to return the value in.
      * @return The current temperature in the selected type.
      */
-    public double getTemparature(TemperatureType type)
+    public double getTemparature(TemperatureType type) throws TemperatureException
     {
         switch(type){
             case Celsius:

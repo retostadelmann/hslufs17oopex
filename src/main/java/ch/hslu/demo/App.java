@@ -21,6 +21,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ch.hslu.oop.sw06.*;
 import ch.hslu.oop.sw07.*;
+import ch.hslu.oop.sw08.Temperature;
+import ch.hslu.oop.sw08.TemperatureType;
+import ch.hslu.oop.sw10.TemperatureException;
+import java.util.Scanner;
 
 /**
  * Demo-Applikation für {@link ch.hslu.demo.App}-Klasse.
@@ -39,8 +43,29 @@ public final class App {
      * Main-Methode.
      * @param args Startargumente.
      */
-    public static void main(final String[] args) {
-        Blei b = new Blei(8000);
-        LOGGER.info(b.getElementState());
+    public static void main(final String[] args) throws TemperatureException {
+        Logger LOG = LogManager.getLogger(App.class);
+        String input;
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+        do {         
+            LOG.info("Bitte Temperatur eingeben ('exit' zum Beenden): ");
+            input = scanner.next();
+            if(!input.equals("exit")){
+                try{
+                    float value = Float.valueOf(input);
+                    Temperature t = Temperature.createFromCelsius(value);
+                    LOG.info("Value is " + t.getTemparature(TemperatureType.Celsius));
+                }
+                catch(NumberFormatException ex){
+                    LOG.error("No valid Number", ex);
+                }
+            }
+            else{
+                exit = true;
+            }
+            
+        } while (!exit);
+        LOG.info("Programm beendet.");
     }
 }

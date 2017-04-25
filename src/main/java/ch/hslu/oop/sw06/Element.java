@@ -27,7 +27,7 @@ public abstract class Element{
      */
     public Element()
     {
-        this.temperature = new Temperature();
+        this.temperature = Temperature.createFromCelsius(0);
         this.stateSwitchPoints = new EnumMap<>(AggregateState.class);
     }
     
@@ -37,7 +37,7 @@ public abstract class Element{
      */
     public Element(final double temperature){
         this.stateSwitchPoints = new EnumMap<>(AggregateState.class);
-        this.temperature = new Temperature(temperature);
+        this.temperature = Temperature.createFromCelsius(temperature);
     }
 
     /**

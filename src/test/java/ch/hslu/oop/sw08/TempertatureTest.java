@@ -5,11 +5,14 @@
  */
 package ch.hslu.oop.sw08;
 
+import ch.hslu.oop.sw06.Element;
+import ch.hslu.oop.sw10.TemperatureException;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mutabilitydetector.unittesting.MutabilityAssert.assertImmutable;
 
 /**
  *
@@ -20,32 +23,32 @@ public class TempertatureTest {
     double delta = 0.0002d;
 
     @Test
-    public void getTemperatureCelsius(){
-        assertEquals(23, new Temperature(23).getTemparature(TemperatureType.Celsius), delta);
+    public void getTemperatureCelsius() throws TemperatureException{
+        assertEquals(23, Temperature.createFromCelsius(23).getTemparature(TemperatureType.Celsius), delta);
     }
     
     @Test
-    public void getTemperatureKelvin(){
-        assertEquals(296.15, new Temperature(23).getTemparature(TemperatureType.Kelvin), delta);
+    public void getTemperatureKelvin() throws TemperatureException{
+        assertEquals(296.15, Temperature.createFromCelsius(23).getTemparature(TemperatureType.Kelvin), delta);
     }
     
     @Test
-    public void getTemperatureFarenheit(){
+    public void getTemperatureFarenheit() throws TemperatureException{
         assertEquals(
                 73.4, 
-                new Temperature(23).getTemparature(
+                Temperature.createFromCelsius(23).getTemparature(
                         TemperatureType.Farenheit
                 ),
                 0.0002f);
     }
     
     @Test
-    public void conversionCelsiusToKelvin(){
+    public void conversionCelsiusToKelvin() throws TemperatureException{
         assertEquals(263.15, Temperature.convertCelsiusToKelvin(-10), delta);
     }
     
-    @Test(expected = IllegalArgumentException.class)
-    public void conversionCelsiusToKelvinWithUnsupportedValue()
+    @Test(expected = TemperatureException.class)
+    public void conversionCelsiusToKelvinWithUnsupportedValue() throws TemperatureException
     {
         Temperature.convertCelsiusToKelvin(-300);          
     }
@@ -53,13 +56,13 @@ public class TempertatureTest {
     @Test(expected = IllegalArgumentException.class)
     public void setTemperatureWithUnsupportedValue()
     {
-        new Temperature().setTemperature(-300);          
+        Temperature.createFromCelsius(0).setTemperature(-300);          
     }
     
     @Test
     public void setTemperatureWithSupportedValue(){
         try {
-            Temperature tempTest = new Temperature(25);
+            Temperature tempTest = Temperature.createFromCelsius(25);
             tempTest.setTemperature(20);
             assertTrue(true);
         } catch (IllegalArgumentException e) {
@@ -77,26 +80,31 @@ public class TempertatureTest {
     
     @Test
     public void equalsPositive(){
-        assertTrue(new Temperature(25).equals(new Temperature(25)));
+        assertTrue(Temperature.createFromCelsius(25).equals(Temperature.createFromCelsius(25)));
     }
     
     @Test
     public void equalsNegative(){
-        assertFalse(new Temperature(25).equals(new Temperature(26)));
+        assertFalse(Temperature.createFromCelsius(25).equals(Temperature.createFromCelsius(26)));
     }
     
     @Test
     public void compareToLower(){
-        assertEquals(-1, new Temperature(25).compareTo(new Temperature(99.5)));
+        assertEquals(-1, Temperature.createFromCelsius(25).compareTo(Temperature.createFromCelsius(99.5)));
     }
     
     @Test
     public void compareToEqual(){
-        assertEquals(0, new Temperature(25).compareTo(new Temperature(25)));
+        assertEquals(0, Temperature.createFromCelsius(25).compareTo(Temperature.createFromCelsius(25)));
     }
     
     @Test
     public void compareToHigher(){
-        assertEquals(1, new Temperature(105).compareTo(new Temperature(99.5)));
+        assertEquals(1, Temperature.createFromCelsius(105).compareTo(Temperature.createFromCelsius(99.5)));
+    }
+    
+    @Test
+    public void isImmutable(){
+         //assertImmutable(Element.class);
     }
 }
