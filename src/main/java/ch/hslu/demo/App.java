@@ -40,8 +40,8 @@ public final class App {
     }
 
     /**
-     * Main-Methode.
-     * @param args Startargumente.
+     * Main-Method.
+     * @param args Arguments.
      */
     public static void main(final String[] args) throws TemperatureException {
         Logger LOG = LogManager.getLogger(App.class);
@@ -59,6 +59,9 @@ public final class App {
                 }
                 catch(NumberFormatException ex){
                     LOG.error("No valid Number", ex);
+                }
+                catch(IllegalArgumentException ex){
+                    LOG.error("Illegal Temperature", ex);
                 }
             }
             else{

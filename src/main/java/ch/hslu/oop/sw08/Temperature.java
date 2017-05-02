@@ -66,8 +66,9 @@ public final class Temperature implements Comparable<Temperature> {
      */
     public static double convertCelsiusToKelvin(final double celsiusTemperature) throws TemperatureException
     {
-        if(celsiusTemperature < (KELVIN_OFFSET * -1)){
-            throw new TemperatureException("Value cannot be less than -273.15");
+        double minTemperature = KELVIN_OFFSET * -1;
+        if(celsiusTemperature < minTemperature){
+            throw new TemperatureException("Value cannot be less than " + minTemperature);
         }
         
         return celsiusTemperature + KELVIN_OFFSET;
