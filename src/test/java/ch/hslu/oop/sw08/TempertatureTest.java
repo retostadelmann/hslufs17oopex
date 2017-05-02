@@ -59,6 +59,12 @@ public class TempertatureTest {
         Temperature.createFromCelsius(0).setTemperature(-300);          
     }
     
+    @Test(expected = IllegalArgumentException.class)
+    public void setTemperaturWithinvalidKelvinValue()
+    {
+        Temperature.createFromKelvin(-1);          
+    }
+    
     @Test
     public void setTemperatureWithSupportedValue(){
         try {
