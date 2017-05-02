@@ -76,6 +76,11 @@ public abstract class Element{
          return this.getTemperatureStateString(this.getCurrentState());
     }
     
+    /**
+     * Gets the current element state.
+     * @return The aggregate state the element is currently in.
+     * @throws TemperatureException 
+     */
     protected AggregateState getCurrentState() throws TemperatureException
     {
         if (this.temperature.getTemparature(TemperatureType.Celsius) < this.stateSwitchPoints.get(AggregateState.Solid)) {
@@ -87,6 +92,12 @@ public abstract class Element{
         }
     }
     
+    /**
+     * Gets the string as a temperature.
+     * @param state
+     * @return
+     * @throws TemperatureException 
+     */
     protected String getTemperatureStateString(AggregateState state) throws TemperatureException
     {
         return String.format(

@@ -97,8 +97,9 @@ public final class Temperature implements Comparable<Temperature> {
      * @param newTempCelsius The temperature to set.
      */
     public void setTemperature(final double newTempCelsius){
-        if(newTempCelsius < (KELVIN_OFFSET * -1)){
-            throw new IllegalArgumentException("New Temp cannot be less than -273.15");
+        double minTemperature = KELVIN_OFFSET * -1;
+        if(newTempCelsius < minTemperature){
+            throw new IllegalArgumentException("New Temp cannot be less than " + minTemperature);
         }
         
         this.tempCels = newTempCelsius;
