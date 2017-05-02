@@ -17,10 +17,11 @@
  */
 package ch.hslu.demo;
 
+import ch.hslu.oop.sw11.Car;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ch.hslu.oop.sw06.*;
-import ch.hslu.oop.sw07.*;
+import ch.hslu.oop.sw11.*;
 import ch.hslu.oop.sw08.Temperature;
 import ch.hslu.oop.sw08.TemperatureType;
 import ch.hslu.oop.sw10.TemperatureException;
@@ -43,7 +44,13 @@ public final class App {
      * Main-Method.
      * @param args Arguments.
      */
-    public static void main(final String[] args) throws TemperatureException {
+    public static void main(final String[] args) {
+        Car myCar = new Car();
+        myCar.turnOn();
+        myCar.turnOff();
+    }
+    
+    public void TemperatureThingy() throws TemperatureException{
         Logger LOG = LogManager.getLogger(App.class);
         String input;
         Scanner scanner = new Scanner(System.in);

@@ -7,6 +7,7 @@ package ch.hslu.oop.sw06;
 
 import ch.hslu.oop.sw08.Temperature;
 import ch.hslu.oop.sw08.TemperatureType;
+import ch.hslu.oop.sw10.TemperatureException;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -23,7 +24,7 @@ public class ElementTest {
     * Testcase for the value in get temperature.
     */
     @Test
-    public void testGetTemperatureCelsius(){
+    public void testGetTemperatureCelsius() throws TemperatureException{
         assertEquals(
                 23, 
                 new Blei(23)
@@ -35,7 +36,7 @@ public class ElementTest {
     * Testcase for the value in get temperature.
     */
     @Test
-    public void testGetTemperatureKelvin(){
+    public void testGetTemperatureKelvin()throws TemperatureException{
         assertEquals(
                 296.15, 
                 new Blei(23)
@@ -47,7 +48,7 @@ public class ElementTest {
     * Testcase for the value in get temperature.
     */
     @Test
-    public void testGetTemperatureFarenheit(){
+    public void testGetTemperatureFarenheit() throws TemperatureException{
         assertEquals(
                 73.4,
                 new Blei(23)
@@ -79,37 +80,37 @@ public class ElementTest {
     }
     
     @Test
-    public void testBleiSolidState(){
+    public void testBleiSolidState() throws TemperatureException{
         Element b = new Blei(35);
         assertEquals(AggregateState.Solid, b.getCurrentState());
     }
     
     @Test
-    public void testBleiLiquidState(){
+    public void testBleiLiquidState() throws TemperatureException{
         Element b = new Blei(500);
         assertEquals(AggregateState.Liquid, b.getCurrentState());
     }
     
     @Test
-    public void testBleiGasState(){
+    public void testBleiGasState() throws TemperatureException{
         Element b = new Blei(5000);
         assertEquals(AggregateState.Gas, b.getCurrentState());
     }
     
     @Test
-    public void testQuecksilberSolidState(){
+    public void testQuecksilberSolidState() throws TemperatureException{
         Element b = new Quecksilber(-270);
         assertEquals(AggregateState.Solid, b.getCurrentState());
     }
     
     @Test
-    public void testQuecksilberLiquidState(){
+    public void testQuecksilberLiquidState() throws TemperatureException{
         Element b = new Quecksilber(20);
         assertEquals(AggregateState.Liquid, b.getCurrentState());
     }
     
     @Test
-    public void testQuecksilberGasState(){
+    public void testQuecksilberGasState() throws TemperatureException{
         Element b = new Quecksilber(357);
         assertEquals(AggregateState.Gas, b.getCurrentState());
     }
