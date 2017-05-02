@@ -6,6 +6,7 @@
 package ch.hslu.oop.sw06;
 
 import ch.hslu.oop.sw08.*;
+import ch.hslu.oop.sw10.TemperatureException;
 import java.util.EnumMap;
 import java.util.Objects;
 import jdk.nashorn.internal.ir.annotations.Immutable;
@@ -45,7 +46,7 @@ public abstract class Element{
      * @param type The temperature type.
      * @return The temperature.
      */
-    public double getTemparature(TemperatureType type)
+    public double getTemparature(TemperatureType type) throws TemperatureException
     {
        return this.temperature.getTemparature(type);
     }
@@ -70,11 +71,13 @@ public abstract class Element{
      * Get the current Element State in text form.
      * @return 
      */
-    public String getElementState(){
+    public String getElementState() throws TemperatureException
+    {
          return this.getTemperatureStateString(this.getCurrentState());
     }
     
-    protected AggregateState getCurrentState(){
+    protected AggregateState getCurrentState() throws TemperatureException
+    {
         if (this.temperature.getTemparature(TemperatureType.Celsius) < this.stateSwitchPoints.get(AggregateState.Solid)) {
             return AggregateState.Solid;
         } else if (this.temperature.getTemparature(TemperatureType.Celsius) < this.stateSwitchPoints.get(AggregateState.Liquid)) {
@@ -84,7 +87,8 @@ public abstract class Element{
         }
     }
     
-    protected String getTemperatureStateString(AggregateState state){
+    protected String getTemperatureStateString(AggregateState state) throws TemperatureException
+    {
         return String.format(
                 "%s ist bei %s Grad Celsius %s", 
                 this.elementName, 
