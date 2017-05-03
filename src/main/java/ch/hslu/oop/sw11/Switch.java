@@ -31,7 +31,7 @@ public abstract class Switch implements ISwitch{
 
     @Override
     public void switchOff() {
-        if(this.isSwitchedOff()){
+        if(!this.isSwitchedOff()){
             this.switchState = SwitchState.OFF;
              this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, this.switchState.name(), this, this));
         }
