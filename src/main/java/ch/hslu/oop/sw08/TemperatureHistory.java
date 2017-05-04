@@ -6,11 +6,13 @@
 package ch.hslu.oop.sw08;
 
 import ch.hslu.demo.Helpers;
+import ch.hslu.oop.sw10.TemperatureException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.OptionalDouble;
 
 /**
@@ -19,24 +21,38 @@ import java.util.OptionalDouble;
  */
 public final class TemperatureHistory {
 
-    private final Collection<Temperature> temperatures;
+    private final List<Temperature> temperatures;
+    private final List<TemperatureEventListener> temperatureEventListeners;
+    private double currentMaxValue = 0, currentMinValue = 0;
 
     /**
      * Instantiates a new temperature history object.
      */
     public TemperatureHistory() {
         this.temperatures = new ArrayList<>();
+        this.temperatureEventListeners = new ArrayList<>();
     }
 
     /**
      * Adds a new temperature to the temperature history.
      *
      * @param temp The temperature to add.
+     * @throws ch.hslu.oop.sw10.TemperatureException
      */
-    public void add(Temperature temp) {
+    public void add(Temperature temp) throws TemperatureException {
         Helpers.checkNullArgument(temp, "temp");
-
-        this.temperatures.add(temp);
+                
+        if (this.getCount() == 0 || temp.getTemparature(TemperatureType.Kelvin) < this.getMinValue().getTemparature(TemperatureType.Kelvin))
+        {
+            this.fireMinTemperatureEvent(new TemperatureHistoryMinEvent(temp));
+        }
+        
+        if (this.getCount() == 0 || temp.getTemparature(TemperatureType.Kelvin) > this.getMaxValue().getTemparature(TemperatureType.Kelvin))
+        {
+            this.fireMaxTemperatureEvent(new TemperatureHistoryMaxEvent(temp));
+        }
+        
+        this.temperatures.add(temp);       
     }
 
     /**
@@ -105,5 +121,33 @@ public final class TemperatureHistory {
             throw new UnsupportedOperationException(
                     "There are no Temperatures stored in the history list.");
         }
+    }
+    
+    public void addTemperatureEventListener(TemperatureEventListener tel){
+        if(tel == null){
+            throw new IllegalArgumentException("Listener cannot be null");
+        }
+        
+        this.temperatureEventListeners.add(tel);
+    }
+    
+    public void removeTemperatureEventListener(TemperatureEventListener tel){
+        if(tel == null){
+            throw new IllegalArgumentException("Listener cannot be null");
+        }
+        
+        this.temperatureEventListeners.remove(tel);
+    }
+    
+    private void fireMaxTemperatureEvent(TemperatureHistoryMaxEvent thme){
+        this.temperatureEventListeners.forEach((tel) -> {
+            tel.HandleTemperatureMaxEvent(thme);
+        });
+    }
+    
+    private void fireMinTemperatureEvent(TemperatureHistoryMinEvent thme){
+        this.temperatureEventListeners.forEach((tel) -> {
+            tel.HandleTemperatureMinEvent(thme);
+        });
     }
 }

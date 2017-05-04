@@ -63,6 +63,7 @@ public final class Temperature implements Comparable<Temperature> {
      * Converts the given temperature to Kelvin.
      * @param celsiusTemperature The temperature to convert.
      * @return The converted temperature in Kelvin.
+     * @throws ch.hslu.oop.sw10.TemperatureException
      */
     public static double convertCelsiusToKelvin(final double celsiusTemperature) throws TemperatureException
     {
@@ -78,6 +79,7 @@ public final class Temperature implements Comparable<Temperature> {
      * Gets the current temperature in the given type.
      * @param type The temperature type to return the value in.
      * @return The current temperature in the selected type.
+     * @throws ch.hslu.oop.sw10.TemperatureException
      */
     public double getTemparature(TemperatureType type) throws TemperatureException
     {

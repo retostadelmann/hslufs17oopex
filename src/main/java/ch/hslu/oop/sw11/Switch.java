@@ -25,7 +25,7 @@ public abstract class Switch implements ISwitch{
     public void switchOn() {
         if(!this.isSwitchedOn()){
             this.switchState = SwitchState.ON;
-            this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, this.switchState.name(), this, this));
+            this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, this.switchState.name(), SwitchState.OFF, SwitchState.ON));
         }
     }
 
@@ -33,7 +33,7 @@ public abstract class Switch implements ISwitch{
     public void switchOff() {
         if(!this.isSwitchedOff()){
             this.switchState = SwitchState.OFF;
-             this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, this.switchState.name(), this, this));
+             this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, this.switchState.name(), SwitchState.ON, SwitchState.OFF));
         }
     }
 
@@ -48,7 +48,7 @@ public abstract class Switch implements ISwitch{
     }
 
     @Override
-    public void addSwitchStateListener(SwitchStateListener listener) {
+    public void addSwitchStateListener(final SwitchStateListener listener) {
         if(listener == null){
             throw new IllegalArgumentException();
         }
@@ -57,7 +57,7 @@ public abstract class Switch implements ISwitch{
     }
 
     @Override
-    public void removeSwitchStateListener(SwitchStateListener listener) {
+    public void removeSwitchStateListener(final SwitchStateListener listener) {
         if(listener == null){
             throw new IllegalArgumentException();
         }
@@ -66,9 +66,9 @@ public abstract class Switch implements ISwitch{
     }
 
     @Override
-    public void fireSwitchStateChangedEvent(PropertyChangeEvent pce) {
-        for(SwitchStateListener l : this.switchListeners){
+    public void fireSwitchStateChangedEvent(final PropertyChangeEvent pce) {
+        this.switchListeners.forEach((l) -> {
             l.propertyChange(pce);
-        }
+        });
     }
 }

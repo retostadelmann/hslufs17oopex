@@ -7,6 +7,7 @@ package ch.hslu.oop.sw08;
 
 import ch.hslu.oop.sw08.Temperature;
 import ch.hslu.oop.sw08.TemperatureHistory;
+import ch.hslu.oop.sw10.TemperatureException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -18,7 +19,7 @@ import org.junit.Test;
 public class TemperatureHistoryTest {
     
     @Test
-    public void tetsAddNewTemperature(){
+    public void tetsAddNewTemperature() throws TemperatureException{
         TemperatureHistory history = new TemperatureHistory();
         history.add(Temperature.createFromCelsius(25));
         
@@ -27,13 +28,13 @@ public class TemperatureHistoryTest {
     }
     
     @Test (expected = IllegalArgumentException.class)
-    public void testAddNullTemp(){
+    public void testAddNullTemp() throws TemperatureException{
         TemperatureHistory history = new TemperatureHistory();
         history.add(null);
     }
     
     @Test
-    public void testCountEquals(){
+    public void testCountEquals() throws TemperatureException{
         TemperatureHistory history = new TemperatureHistory();
         history.add(Temperature.createFromCelsius(25));
         history.add(Temperature.createFromCelsius(35));
@@ -59,7 +60,7 @@ public class TemperatureHistoryTest {
     }
     
     @Test
-    public void testClearHistory(){
+    public void testClearHistory() throws TemperatureException{
         TemperatureHistory history = new TemperatureHistory();
         history.add(Temperature.createFromCelsius(25));
         history.add(Temperature.createFromCelsius(35));
@@ -70,7 +71,7 @@ public class TemperatureHistoryTest {
     }
     
     @Test
-    public void testGetMax(){
+    public void testGetMax() throws TemperatureException{
         TemperatureHistory history = new TemperatureHistory();
         history.add(Temperature.createFromCelsius(25));
         Temperature highest = Temperature.createFromCelsius(35);
@@ -81,7 +82,7 @@ public class TemperatureHistoryTest {
     }
     
     @Test
-    public void testGetMin(){
+    public void testGetMin() throws TemperatureException{
         TemperatureHistory history = new TemperatureHistory();
         history.add(Temperature.createFromCelsius(25));
         Temperature lowest = Temperature.createFromCelsius(-40);
@@ -92,7 +93,7 @@ public class TemperatureHistoryTest {
     }
     
     @Test
-    public void testGetAverage(){
+    public void testGetAverage() throws TemperatureException{
         TemperatureHistory history = new TemperatureHistory();
         history.add(Temperature.createFromCelsius(10));
         history.add(Temperature.createFromCelsius(20));

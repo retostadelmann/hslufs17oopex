@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 import ch.hslu.oop.sw06.*;
 import ch.hslu.oop.sw11.*;
 import ch.hslu.oop.sw08.Temperature;
+import ch.hslu.oop.sw08.TemperatureHistory;
 import ch.hslu.oop.sw08.TemperatureType;
 import ch.hslu.oop.sw10.TemperatureException;
 import java.util.Scanner;
@@ -43,39 +44,9 @@ public final class App {
     /**
      * Main-Method.
      * @param args Arguments.
+     * @throws ch.hslu.oop.sw10.TemperatureException
      */
-    public static void main(final String[] args) {
-        Car myCar = new Car();
-        myCar.turnOn();
-        myCar.turnOff();
-    }
-    
-    public void TemperatureThingy() throws TemperatureException{
-        Logger LOG = LogManager.getLogger(App.class);
-        String input;
-        Scanner scanner = new Scanner(System.in);
-        boolean exit = false;
-        do {         
-            LOG.info("Bitte Temperatur eingeben ('exit' zum Beenden): ");
-            input = scanner.next();
-            if(!input.equals("exit")){
-                try{
-                    float value = Float.valueOf(input);
-                    Temperature t = Temperature.createFromCelsius(value);
-                    LOG.info("Value is " + t.getTemparature(TemperatureType.Celsius));
-                }
-                catch(NumberFormatException ex){
-                    LOG.error("No valid Number", ex);
-                }
-                catch(IllegalArgumentException ex){
-                    LOG.error("Illegal Temperature", ex);
-                }
-            }
-            else{
-                exit = true;
-            }
-            
-        } while (!exit);
-        LOG.info("Programm beendet.");
+    public static void main(final String[] args) throws TemperatureException {
+        TemperatureHistoryAnalyzer tha = new TemperatureHistoryAnalyzer();
     }
 }
