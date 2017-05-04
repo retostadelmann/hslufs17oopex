@@ -13,7 +13,6 @@ import java.util.List;
  *
  * @author reto.stadelmann
  */
-public class Light extends Switch {
-
-    
+public class Light extends SwitchableMotorPart {
+    // No Specific Functions, only implements SwitchableMotorPart functionality 
 }

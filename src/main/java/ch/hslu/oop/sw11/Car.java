@@ -17,8 +17,8 @@ import org.apache.logging.log4j.Logger;
  *
  * @author reto.stadelmann
  */
-public class Car implements SwitchStateListener {
-    
+public class Car {
+    private final Logger logger = LogManager.getLogger(Car.class);
     private final Motor motor;
     private final Light lightLeft;
     private final Light lightRight;
@@ -28,9 +28,9 @@ public class Car implements SwitchStateListener {
         this.lightLeft = new Light();
         this.lightRight = new Light();
         
-        this.motor.addSwitchStateListener(e -> this.propertyChange(e));    
-        this.lightLeft.addSwitchStateListener(e -> this.propertyChange(e));
-        this.lightRight.addSwitchStateListener(e -> this.propertyChange(e));
+        this.motor.addSwitchStateListener(e -> this.handleMotorEvent("Event vom Motor", e));    
+        this.lightLeft.addSwitchStateListener(e -> this.handleLightEvent("Event von Licht Links",  e));
+        this.lightRight.addSwitchStateListener(e -> this.handleLightEvent("Event von Licht Rechts",  e));
     }
     
     public void turnOn(){
@@ -45,9 +45,11 @@ public class Car implements SwitchStateListener {
         this.lightRight.switchOff();
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent e) {
-       Logger logger = LogManager.getLogger(Car.class);
-       logger.info("Property " + e.getPropertyName() + " on " + e.getSource() + " has Changed.");
+    public void handleMotorEvent(final String message, final PropertyChangeEvent e) {
+       logger.info(message + ": Property " + e.getPropertyName() + " has changed to " + e.getNewValue());
+    }
+    
+    public void handleLightEvent(final String message, final PropertyChangeEvent e){
+        logger.info(message + ": Property " + e.getPropertyName() + " has changed to " + e.getNewValue());
     }
 }

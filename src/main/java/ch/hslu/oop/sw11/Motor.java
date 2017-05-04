@@ -13,6 +13,6 @@ import java.util.List;
  *
  * @author reto.stadelmann
  */
-public class Motor extends Switch {
-    
+public class Motor extends SwitchableMotorPart {
+    // No Specific Motor Functions, only implements SwitchableMotorPart functionality
 }
