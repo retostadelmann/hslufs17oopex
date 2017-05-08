@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 public final class TemperatureHistory {
 
-    private final List<TemperatureMeasurementPoint> temperatures;
+    private final List<TemperatureMeasurementPoint> temperatureMeasurementPoints;
     private final List<TemperatureEventListener> temperatureEventListeners;
     private double currentMaxValue = 0, currentMinValue = 0;
 
@@ -32,7 +32,7 @@ public final class TemperatureHistory {
      * Instantiates a new temperature history object.
      */
     public TemperatureHistory() {
-        this.temperatures = new ArrayList<>();
+        this.temperatureMeasurementPoints = new ArrayList<>();
         this.temperatureEventListeners = new ArrayList<>();
     }
     
@@ -59,37 +59,37 @@ public final class TemperatureHistory {
         Helpers.checkNullArgument(temp, "temp");
         Helpers.checkNullArgument(timestamp, "timestamp");
                 
-        if (this.getCount() == 0 || temp.getTemparature(TemperatureType.Kelvin) < this.getMinValue().getTemparature(TemperatureType.Kelvin))
+        if (this.getCount() == 0 || temp.getTemparature(TemperatureType.Kelvin) < this.getLowestTemperatureValue().getTemparature(TemperatureType.Kelvin))
         {
             this.fireMinTemperatureEvent(new TemperatureHistoryMinEvent(temp));
         }
         
-        if (this.getCount() == 0 || temp.getTemparature(TemperatureType.Kelvin) > this.getMaxValue().getTemparature(TemperatureType.Kelvin))
+        if (this.getCount() == 0 || temp.getTemparature(TemperatureType.Kelvin) > this.getHighestTemperatureValue().getTemparature(TemperatureType.Kelvin))
         {
             this.fireMaxTemperatureEvent(new TemperatureHistoryMaxEvent(temp));
         }
         
-        this.temperatures.add(new TemperatureMeasurementPoint(temp, timestamp));       
+        this.temperatureMeasurementPoints.add(new TemperatureMeasurementPoint(temp, timestamp));       
     }
 
     /**
      * Clears the current history entries.
      */
     public void clear() {
-        this.temperatures.clear();
+        this.temperatureMeasurementPoints.clear();
     }
 
     /**
-     * Returns the amount of stored temperatures in this objects history.
+     * Returns the amount of stored temperatureMeasurementPoints in this objects history.
      *
      * @return The amount of temperature entries.
      */
     public int getCount() {
-        return this.temperatures.size();
+        return this.temperatureMeasurementPoints.size();
     }
     
     public List<TemperatureMeasurementPoint> getTemperatures(){
-        return this.temperatures;
+        return this.temperatureMeasurementPoints;
     }
 
     /**
@@ -98,9 +98,13 @@ public final class TemperatureHistory {
      * @return The temperature with the highest value.
      * @throws UnsupportedOperationException
      */
-    public Temperature getMaxValue() {
+    public Temperature getHighestTemperatureValue() {
         checkForNoHistoryEntries();
-        return Collections.max(this.temperatures.stream().map(i -> i.getTemperature()).collect(Collectors.toList()));
+        return Collections.max(
+                this.temperatureMeasurementPoints
+                        .stream()
+                        .map(i -> i.getTemperature())
+                        .collect(Collectors.toList()));
     }
 
     /**
@@ -109,9 +113,43 @@ public final class TemperatureHistory {
      * @return The temperature with the lowest value.
      * @throws UnsupportedOperationException
      */
-    public Temperature getMinValue() {
+    public Temperature getLowestTemperatureValue() {
         checkForNoHistoryEntries();
-        return Collections.min(this.temperatures.stream().map(i -> i.getTemperature()).collect(Collectors.toList()));
+        return Collections.min(
+                this.temperatureMeasurementPoints
+                        .stream()
+                        .map(i -> i.getTemperature())
+                        .collect(Collectors.toList()));
+    }
+    
+    /**
+     * Returns the highest value in the history.
+     *
+     * @return The timestamp with the highest value.
+     * @throws UnsupportedOperationException
+     */
+    public LocalDateTime getHighestTimestampValue(){
+        checkForNoHistoryEntries();     
+        return Collections.max(
+                this.temperatureMeasurementPoints
+                    .stream()
+                    .map(i -> i.getTimestamp())
+                    .collect(Collectors.toList()));           
+    }
+    
+    /**
+     * Returns the lowest value in the history.
+     *
+     * @return The timestamp with the lowest value.
+     * @throws UnsupportedOperationException
+     */
+    public LocalDateTime getLowestTimestampValue(){
+        checkForNoHistoryEntries();     
+        return Collections.min(
+                this.temperatureMeasurementPoints
+                    .stream()
+                    .map(i -> i.getTimestamp())
+                    .collect(Collectors.toList()));           
     }
 
     /**
@@ -120,11 +158,11 @@ public final class TemperatureHistory {
      * @return The average temperature value.
      * @throws UnsupportedOperationException
      */
-    public double getAverageValue() {
+    public double getAverageTemperatureValue() {
         checkForNoHistoryEntries();
         
         OptionalDouble average
-                = this.temperatures
+                = this.temperatureMeasurementPoints
                         .stream().map(t -> t.getTemperature())
                         .mapToDouble(temp -> temp.tempCels)
                         .average();

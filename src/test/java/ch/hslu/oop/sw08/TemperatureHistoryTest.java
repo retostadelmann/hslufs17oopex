@@ -44,19 +44,19 @@ public class TemperatureHistoryTest {
     @Test (expected = UnsupportedOperationException.class)
     public void testGetMaxValueException(){
         TemperatureHistory history = new TemperatureHistory();
-        history.getMaxValue();
+        history.getHighestTemperatureValue();
     }
     
     @Test (expected = UnsupportedOperationException.class)
     public void testGetMinValueException(){
         TemperatureHistory history = new TemperatureHistory();
-        history.getMinValue();
+        history.getLowestTemperatureValue();
     }
     
     @Test (expected = UnsupportedOperationException.class)
     public void testGetAverageValueException(){
         TemperatureHistory history = new TemperatureHistory();
-        history.getAverageValue();
+        history.getAverageTemperatureValue();
     }
     
     @Test
@@ -78,7 +78,7 @@ public class TemperatureHistoryTest {
         history.add(highest);
         history.add(Temperature.createFromCelsius(-30));
         
-        assertEquals(highest, history.getMaxValue());
+        assertEquals(highest, history.getHighestTemperatureValue());
     }
     
     @Test
@@ -89,7 +89,7 @@ public class TemperatureHistoryTest {
         history.add(lowest);
         history.add(Temperature.createFromCelsius(-30));
         
-        assertEquals(lowest, history.getMinValue());
+        assertEquals(lowest, history.getLowestTemperatureValue());
     }
     
     @Test
@@ -99,6 +99,6 @@ public class TemperatureHistoryTest {
         history.add(Temperature.createFromCelsius(20));
         history.add(Temperature.createFromCelsius(30));
         
-        assertEquals(20, history.getAverageValue(), 0.0002d);
+        assertEquals(20, history.getAverageTemperatureValue(), 0.0002d);
     }
 }

@@ -65,9 +65,12 @@ public final class TemperatureHistoryAnalyzer implements TemperatureEventListene
         }
 
         LOG.info("Anzahl aufgezeichnete Punkte: " + temperatureHistory.getCount());
-        LOG.info("Durchschnittstemperatur: " + temperatureHistory.getAverageValue());
-        LOG.info("Tiefste Temperatur: " + temperatureHistory.getMinValue().getTemparature(TemperatureType.Celsius));
-        LOG.info("Höchste Temperatur: " + temperatureHistory.getMaxValue().getTemparature(TemperatureType.Celsius));
+        LOG.info("Durchschnittstemperatur: " + temperatureHistory.getAverageTemperatureValue());
+        LOG.info("Tiefste Temperatur: " + temperatureHistory.getLowestTemperatureValue().getTemparature(TemperatureType.Celsius));
+        LOG.info("Höchste Temperatur: " + temperatureHistory.getHighestTemperatureValue().getTemparature(TemperatureType.Celsius));
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+        LOG.info("Zeitspanne erfasst: " + temperatureHistory.getLowestTimestampValue().format(formatter) + " - " + temperatureHistory.getHighestTimestampValue().format(formatter));
     }
 
     /**
@@ -104,9 +107,9 @@ public final class TemperatureHistoryAnalyzer implements TemperatureEventListene
         LOG.info("Programm beendet.");
         LOG.info("Anzal aufgezeichnete Punkte: " + temperatureHistory.getCount());
         if (temperatureHistory.getCount() > 0) {
-            LOG.info("Durchschnittstemperatur: " + temperatureHistory.getAverageValue());
-            LOG.info("Tiefste Temperatur: " + temperatureHistory.getMinValue().getTemparature(TemperatureType.Celsius));
-            LOG.info("Höchste Temperatur: " + temperatureHistory.getMaxValue().getTemparature(TemperatureType.Celsius));
+            LOG.info("Durchschnittstemperatur: " + temperatureHistory.getAverageTemperatureValue());
+            LOG.info("Tiefste Temperatur: " + temperatureHistory.getLowestTemperatureValue().getTemparature(TemperatureType.Celsius));
+            LOG.info("Höchste Temperatur: " + temperatureHistory.getHighestTemperatureValue().getTemparature(TemperatureType.Celsius));
         }
     }
 
