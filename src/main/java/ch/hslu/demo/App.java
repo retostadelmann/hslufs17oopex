@@ -17,15 +17,11 @@
  */
 package ch.hslu.demo;
 
-import ch.hslu.oop.sw11.Car;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ch.hslu.oop.sw06.*;
 import ch.hslu.oop.sw11.*;
-import ch.hslu.oop.sw08.Temperature;
-import ch.hslu.oop.sw08.TemperatureType;
 import ch.hslu.oop.sw10.TemperatureException;
-import java.util.Scanner;
+import java.io.IOException;
 
 /**
  * Demo-Applikation für {@link ch.hslu.demo.App}-Klasse.
@@ -44,9 +40,9 @@ public final class App {
      * Main-Method.
      * @param args Arguments.
      */
-    public static void main(final String[] args) {
-        Car myCar = new Car();
-        myCar.turnOn();
-        myCar.turnOff();
+    public static void main(final String[] args) throws IOException, TemperatureException {
+        String filePath = "C:\\temp\\netatmo-export-201608-201610.csv";
+        LOGGER.info("Verarbeite " + filePath);
+        TemperatureHistoryAnalyzer tha = new TemperatureHistoryAnalyzer(filePath);
     }
 }

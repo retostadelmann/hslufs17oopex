@@ -6,7 +6,9 @@
 package ch.hslu.oop.sw08;
 
 import ch.hslu.demo.Helpers;
-import ch.hslu.oop.sw10.TemperatureException;
+import ch.hslu.oop.sw10.*;
+import ch.hslu.oop.sw12.*;
+import java.time.LocalDateTime;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +16,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -21,7 +24,7 @@ import java.util.OptionalDouble;
  */
 public final class TemperatureHistory {
 
-    private final List<Temperature> temperatures;
+    private final List<TemperatureMeasurementPoint> temperatures;
     private final List<TemperatureEventListener> temperatureEventListeners;
     private double currentMaxValue = 0, currentMinValue = 0;
 
@@ -32,7 +35,7 @@ public final class TemperatureHistory {
         this.temperatures = new ArrayList<>();
         this.temperatureEventListeners = new ArrayList<>();
     }
-
+    
     /**
      * Adds a new temperature to the temperature history.
      *
@@ -41,6 +44,20 @@ public final class TemperatureHistory {
      */
     public void add(Temperature temp) throws TemperatureException {
         Helpers.checkNullArgument(temp, "temp");
+  
+        this.add(temp, LocalDateTime.now());       
+    }
+
+    /**
+     * Adds a new temperature to the temperature history.
+     *
+     * @param temp The temperature to add.
+     * @param timestamp The timestamp.
+     * @throws ch.hslu.oop.sw10.TemperatureException
+     */
+    public void add(Temperature temp, LocalDateTime timestamp) throws TemperatureException {
+        Helpers.checkNullArgument(temp, "temp");
+        Helpers.checkNullArgument(timestamp, "timestamp");
                 
         if (this.getCount() == 0 || temp.getTemparature(TemperatureType.Kelvin) < this.getMinValue().getTemparature(TemperatureType.Kelvin))
         {
@@ -52,7 +69,7 @@ public final class TemperatureHistory {
             this.fireMaxTemperatureEvent(new TemperatureHistoryMaxEvent(temp));
         }
         
-        this.temperatures.add(temp);       
+        this.temperatures.add(new TemperatureMeasurementPoint(temp, timestamp));       
     }
 
     /**
@@ -70,6 +87,10 @@ public final class TemperatureHistory {
     public int getCount() {
         return this.temperatures.size();
     }
+    
+    public List<TemperatureMeasurementPoint> getTemperatures(){
+        return this.temperatures;
+    }
 
     /**
      * Returns the highest value in the history.
@@ -79,7 +100,7 @@ public final class TemperatureHistory {
      */
     public Temperature getMaxValue() {
         checkForNoHistoryEntries();
-        return Collections.max(this.temperatures);
+        return Collections.max(this.temperatures.stream().map(i -> i.getTemperature()).collect(Collectors.toList()));
     }
 
     /**
@@ -90,7 +111,7 @@ public final class TemperatureHistory {
      */
     public Temperature getMinValue() {
         checkForNoHistoryEntries();
-        return Collections.min(this.temperatures);
+        return Collections.min(this.temperatures.stream().map(i -> i.getTemperature()).collect(Collectors.toList()));
     }
 
     /**
@@ -104,7 +125,7 @@ public final class TemperatureHistory {
         
         OptionalDouble average
                 = this.temperatures
-                        .stream()
+                        .stream().map(t -> t.getTemperature())
                         .mapToDouble(temp -> temp.tempCels)
                         .average();
 
