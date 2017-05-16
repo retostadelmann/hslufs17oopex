@@ -51,20 +51,24 @@ public final class MotorSwitchGuiJavaFx extends Application {
             }
             motorView.getOnButton().setDisable(true);
             motorView.getOffButton().setDisable(false);
+            motorView.getRotationDownButton().setDisable(false);
+            motorView.getRotationUpButton().setDisable(false);
         });
         
         motorView.getOffButton().setOnAction((final ActionEvent event) -> {
-            motor.switchOff();
-            motorView.setNewLabel("The switch is OFF.", "-fx-background-color: red;");
-            motorView.getOnButton().setDisable(false);
-            motorView.getOffButton().setDisable(true);
+            turnOffMotor();
+        });
+        
+        motorView.getRotationDownButton().setOnAction((final ActionEvent event) -> {
+            motor.changeRotation(-1000);
+        });
+        motorView.getRotationUpButton().setOnAction((final ActionEvent event) -> {
+            motor.changeRotation(1000);
         });
         
         motor.addSwitchStateListener(e -> this.handleMotorEvent(e));
-        motorView.addRotationListener(e -> this.handleRotationEvent(e));
-
-        
-        primaryStage.setScene(new Scene(motorView.getContent(), 200, 100));
+    
+        primaryStage.setScene(new Scene(motorView.getContent(), 400, 100));
         primaryStage.show();
     }
 
@@ -75,14 +79,25 @@ public final class MotorSwitchGuiJavaFx extends Application {
     public static void main(final String[] args) {
         launch(MotorSwitchGuiJavaFx.class, args);
     }
+    
+    private void turnOffMotor(){
+        motor.switchOff();
+        motorView.setNewLabel("The switch is OFF.", "-fx-background-color: red;");
+        motorView.getOnButton().setDisable(false);
+        motorView.getOffButton().setDisable(true);
+        motorView.getRotationDownButton().setDisable(true);
+        motorView.getRotationUpButton().setDisable(true);
+    }
 
     private void handleMotorEvent(final PropertyChangeEvent e) {
         if(SwitchState.ERROR == e.getNewValue()){
             this.motorView.setNewLabel("The switch has an error!", "-fx-background-color: yellow;");
         }
-    }
-    
-    private void handleRotationEvent(final PropertyChangeEvent e){
-        this.motor.changeRotation((Integer)e.getNewValue());
+        if(((Motor)e.getSource()).getRotation() <= 0){
+            turnOffMotor();
+        }
+        else if(((Motor)e.getSource()).getRotation() > 6000){
+            this.motorView.setNewLabel("The switch has an error!", "-fx-background-color: yellow;");
+        }
     }
 }

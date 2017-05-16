@@ -19,10 +19,15 @@ public class Motor extends SwitchableMotorPart {
     
     public void changeRotation(int amount){
         this.rotations += amount;
+        this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, "rotations", null, null));
     }
     
     private void setRotations(int number){
         this.rotations = number;
+    }
+    
+    public int getRotation(){
+        return this.rotations;
     }
     
     @Override

@@ -19,7 +19,7 @@ public interface IMotorView {
     Parent getContent();
     Button getOnButton();
     Button getOffButton();
+    Button getRotationDownButton();
+    Button getRotationUpButton();
     void setNewLabel(String text, String style);
-    void addRotationListener(EventListener listener);   
-    void removeRotationListener(EventListener listener);
 }

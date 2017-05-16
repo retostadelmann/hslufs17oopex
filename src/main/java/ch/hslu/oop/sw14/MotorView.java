@@ -29,7 +29,6 @@ public class MotorView implements IMotorView{
         private Button btnRotationDown;
         private BorderPane borderPane;
         private Label label;
-        private final List<PropertyChangeListener> pceListeners ;
     
     public MotorView(){
         this.label = new Label("The switch is OFF.");
@@ -38,11 +37,19 @@ public class MotorView implements IMotorView{
         this.btnOn = new Button("On");       
         this.btnOff = new Button("Off");
         this.btnOff.setDisable(true);
-        this.borderPane = new BorderPane();
+        
+        this.btnRotationUp = new Button("Rotation Up");
+        this.btnRotationDown = new Button ("Rotation Down");
+        this.btnRotationDown.setDisable(true);
+        this.btnRotationUp.setDisable(true);
+        
+        this.borderPane = new BorderPane();  
         this.borderPane.setTop(btnOn);
         this.borderPane.setCenter(label);
         this.borderPane.setBottom(btnOff);
-        this.pceListeners = new ArrayList();
+        this.borderPane.setLeft(btnRotationUp);
+        this.borderPane.setRight(btnRotationDown);
+
     }
 
     @Override
@@ -67,20 +74,13 @@ public class MotorView implements IMotorView{
     }
 
     @Override
-    public void addRotationListener(PropertyChangeListener listener) {
-        this.pceListeners.add(listener);
+    public Button getRotationDownButton() {
+        return this.btnRotationDown;
     }
 
     @Override
-    public void removeRotationListener(PropertyChangeListener listener) {
-        this.pceListeners.remove(listener);
-    }
-
-    @Override
-    public void fireRotationEvent(int amount) {
-        this.pceListeners.forEach((pce) -> {
-            pce.propertyChange(new PropertyChangeEvent(this, "rotations", null , amount));
-        });
+    public Button getRotationUpButton() {
+        return this.btnRotationUp;
     }
     
     
