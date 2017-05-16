@@ -14,10 +14,10 @@ import java.util.List;
  * @author reto.stadelmann
  */
 public abstract class SwitchableMotorPart implements ISwitch{
-    private SwitchState switchState = SwitchState.OFF;
-    private final List<SwitchStateListener> switchListeners ;
+    protected SwitchState switchState = SwitchState.OFF;
+    protected final List<SwitchStateListener> switchListeners ;
     
-    public SwitchableMotorPart(){
+    protected SwitchableMotorPart(){
         this.switchListeners = new ArrayList();
     }
 
@@ -25,7 +25,7 @@ public abstract class SwitchableMotorPart implements ISwitch{
     public void switchOn() {
         if(!this.isSwitchedOn()){
             this.switchState = SwitchState.ON;
-            this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, "SwitchState", SwitchState.OFF, SwitchState.ON));
+            this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, "SwitchState", SwitchState.OFF, SwitchState.ON));          
         }
     }
 
@@ -47,6 +47,11 @@ public abstract class SwitchableMotorPart implements ISwitch{
         return this.switchState != SwitchState.ON;
     }
 
+    @Override
+    public SwitchState getState(){
+        return this.switchState;
+    }
+    
     @Override
     public void addSwitchStateListener(final SwitchStateListener listener) {
         if(listener == null){

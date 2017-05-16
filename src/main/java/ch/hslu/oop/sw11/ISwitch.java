@@ -34,6 +34,8 @@ public interface ISwitch {
      */
     boolean isSwitchedOff();
     
+    SwitchState getState();
+    
     void addSwitchStateListener(SwitchStateListener listener);
     
     void removeSwitchStateListener(SwitchStateListener listener);

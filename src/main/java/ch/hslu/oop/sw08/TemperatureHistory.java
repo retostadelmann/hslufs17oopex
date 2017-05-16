@@ -26,7 +26,6 @@ public final class TemperatureHistory {
 
     private final List<TemperatureMeasurementPoint> temperatureMeasurementPoints;
     private final List<TemperatureEventListener> temperatureEventListeners;
-    private double currentMaxValue = 0, currentMinValue = 0;
 
     /**
      * Instantiates a new temperature history object.

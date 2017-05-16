@@ -14,5 +14,40 @@ import java.util.List;
  * @author reto.stadelmann
  */
 public class Motor extends SwitchableMotorPart {
-    // No Specific Functions, only implements SwitchableMotorPart functionality
+    private int rotations = 0;   
+    private int switchCount;
+    
+    public void changeRotation(int amount){
+        this.rotations += amount;
+    }
+    
+    private void setRotations(int number){
+        this.rotations = number;
+    }
+    
+    @Override
+    public void switchOn() {
+        if(!this.isSwitchedOn()){
+            this.setRotations(1000);
+            this.switchCount++;
+            if(this.switchCount > 3){
+                this.switchState = SwitchState.ERROR;
+                this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, "SwitchState", SwitchState.OFF, SwitchState.ERROR));
+                this.switchCount = 0;
+            }
+            else{
+                this.switchState = SwitchState.ON;
+                this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, "SwitchState", SwitchState.OFF, SwitchState.ON));
+            }
+        }
+    }
+
+    @Override
+    public void switchOff() {
+        if(!this.isSwitchedOff()){
+            this.switchState = SwitchState.OFF;
+            this.setRotations(0);
+            this.fireSwitchStateChangedEvent(new PropertyChangeEvent(this, "SwitchStates", SwitchState.ON, SwitchState.OFF));
+        }
+    }
 }
