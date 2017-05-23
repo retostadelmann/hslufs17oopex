@@ -19,9 +19,7 @@ package ch.hslu.demo;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ch.hslu.oop.sw11.*;
-import ch.hslu.oop.sw10.TemperatureException;
-import java.io.IOException;
+import ch.hslu.oop.sw14.MultiMain;
 
 /**
  * Demo-Applikation für {@link ch.hslu.demo.App}-Klasse.
@@ -36,13 +34,16 @@ public final class App {
     private App() {
     }
 
+    public static void main(final String[] args) throws Exception {
+        MultiMain mm = new MultiMain();
+    }
     /**
      * Main-Method.
      * @param args Arguments.
      */
-    public static void main(final String[] args) throws IOException, TemperatureException {
-        String filePath = "C:\\temp\\netatmo-export-201608-201610.csv";
-        LOGGER.info("Verarbeite " + filePath);
-        TemperatureHistoryAnalyzer tha = new TemperatureHistoryAnalyzer(filePath);
-    }
+//    public static void main(final String[] args) throws IOException, TemperatureException {
+//        String filePath = "C:\\temp\\netatmo-export-201608-201610.csv";
+//        LOGGER.info("Verarbeite " + filePath);
+//        TemperatureHistoryAnalyzer tha = new TemperatureHistoryAnalyzer(filePath);
+//    }
 }
